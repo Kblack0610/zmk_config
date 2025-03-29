@@ -21,7 +21,7 @@
                 symbols {
                         bindings = <
   &none &kp EXCL &kp AT &kp MINUS &kp UNDER &kp PIPE  &kp PLUS &kp AMPS &kp LT &kp GT &none &none
-  &none &kp HASH &kp DLLR &Kp LPAR &kp RPAR &none   &none &kp LBRC &kp RBRC &kp AMPS &kp ASTRK &kp DEL
+  &none &kp HASH &kp DLLR &kp LPAR &kp RPAR &none   &none &kp LBRC &kp RBRC &kp AMPS &kp ASTRK &kp DEL
   &none &kp CARET &kp PRCNT &kp LBKT &kp RBKT &none   &none &kp DQT &kp SQT &kp GRAVE &kp BSLH &none
       &none &none &kp LG(ENTER)   &kp SPACE &none &none
                         >;
