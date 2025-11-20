@@ -33,16 +33,16 @@
                 };
                 nums_workspace {
                         bindings = <
-  &none &kp  &kp LG(N3) &kp E &kp LG(N6) &none &kp EQUAL &kp N7 &kp N8 &kp N9 &kp N0 &none
+  &none &none  &kp LG(N3) &kp E &kp LG(N6) &none    &kp EQUAL &kp N7 &kp N8 &kp N9 &kp N0 &none
   &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none   &kp MINUS &kp N4 &kp N5 &kp N6 &kp PLUS &kp DEL
-  &kp LSHFT &mt LCTRL Z &kp LG(N1) &kp LG(N2) &mkp LCLK &mkp RCLK &none &kp N1 &kp N2 &kp N3 &kp DEL &none
+  &kp LSHFT &mt LCTRL Z &kp LG(N1) &kp LG(N2) &mkp LCLK &mkp RCLK   &none &kp N1 &kp N2 &kp N3 &kp DEL &none
       &none &kp LGUI &none   &kp SPACE &kp F12 &none
                         >;
                 };
                 arrow_misc {
                         bindings = <
    &bt BT_CLR &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &none &kp LEFT &kp DOWN &kp UP &kp RIGHT &none
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &msc SCRL_DOWN &kp LEFT &kp DOWN &kp UP &kp RIGHT &msc SCRL_UP
    &none &kp F6 &kp F7 &kp F10 &kp F11 &kp F12    &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE &kp C_PREV &kp C_NEXT &kp C_PP
       &none &none &none   &none &none &none 
                         >;
