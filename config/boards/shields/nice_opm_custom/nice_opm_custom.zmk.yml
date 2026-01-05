@@ -1,0 +1,8 @@
+file_format: "1"
+id: nice_opm_custom
+name: nice!view OPM Custom BT Status
+type: shield
+url: https://nicekeyboards.com/nice-view
+requires: [nice_view_header]
+features:
+  - display
