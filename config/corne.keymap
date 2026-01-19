@@ -12,6 +12,16 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
+        combos {
+                compatible = "zmk,combos";
+                combo_bt_clear {
+                        timeout-ms = <50>;
+                        key-positions = <0 11>;
+                        bindings = <&bt BT_CLR>;
+                        layers = <3>;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
@@ -41,7 +51,7 @@
                 };
                 arrow_misc {
                         bindings = <
-   &bt BT_CLR &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
+   &none &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
    &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &msc SCRL_DOWN &kp LEFT &kp DOWN &kp UP &kp RIGHT &msc SCRL_UP
    &none &kp F6 &kp F7 &kp F10 &kp F11 &kp F12    &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE &kp C_PREV &kp C_NEXT &kp C_PP
       &none &none &none   &none &none &none 
