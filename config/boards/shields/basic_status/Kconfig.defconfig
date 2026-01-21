@@ -6,4 +6,7 @@ config ZMK_DISPLAY
 config LV_Z_MEM_POOL_SIZE
     default 4096
 
+config LV_USE_LABEL
+    default y
+
 endif

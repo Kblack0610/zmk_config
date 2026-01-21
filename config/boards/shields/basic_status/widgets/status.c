@@ -20,8 +20,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct zmk_widget_status status_widget;
 
-LV_FONT_DECLARE(lv_font_montserrat_28);
-
 static void set_bt_profile(lv_obj_t *label, uint8_t profile) {
     char text[8];
     snprintf(text, sizeof(text), "BT %d", profile + 1);
@@ -36,34 +34,30 @@ static void set_battery_status(lv_obj_t *label, uint8_t level) {
 
 static void set_connection_status(lv_obj_t *label, bool connected) {
     if (connected) {
-        lv_label_set_text(label, "CONNECTED");
+        lv_label_set_text(label, "CONN");
     } else {
-        lv_label_set_text(label, "DISCONNECTED");
+        lv_label_set_text(label, "DISC");
     }
 }
 
 int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
-    lv_obj_set_size(widget->obj, LV_PCT(100), LV_PCT(100));
-    lv_obj_set_style_bg_color(widget->obj, lv_color_white(), LV_PART_MAIN);
-    lv_obj_set_style_pad_all(widget->obj, 4, LV_PART_MAIN);
-    lv_obj_set_flex_flow(widget->obj, LV_FLEX_FLOW_COLUMN);
-    lv_obj_set_flex_align(widget->obj, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+    lv_obj_set_size(widget->obj, 160, 68);
+    lv_obj_set_pos(widget->obj, 0, 0);
 
     /* BT Profile - Large centered text */
     widget->bt_label = lv_label_create(widget->obj);
-    lv_obj_set_style_text_font(widget->bt_label, &lv_font_montserrat_28, LV_PART_MAIN);
-    lv_obj_set_style_text_color(widget->bt_label, lv_color_black(), LV_PART_MAIN);
+    lv_obj_align(widget->bt_label, LV_ALIGN_TOP_MID, 0, 5);
     set_bt_profile(widget->bt_label, zmk_ble_active_profile_index());
 
     /* Battery Level */
     widget->battery_label = lv_label_create(widget->obj);
-    lv_obj_set_style_text_color(widget->battery_label, lv_color_black(), LV_PART_MAIN);
+    lv_obj_align(widget->battery_label, LV_ALIGN_BOTTOM_LEFT, 5, -5);
     set_battery_status(widget->battery_label, zmk_battery_state_of_charge());
 
     /* Connection Status */
     widget->conn_label = lv_label_create(widget->obj);
-    lv_obj_set_style_text_color(widget->conn_label, lv_color_black(), LV_PART_MAIN);
+    lv_obj_align(widget->conn_label, LV_ALIGN_BOTTOM_RIGHT, -5, -5);
     set_connection_status(widget->conn_label, zmk_ble_active_profile_is_connected());
 
     return 0;
