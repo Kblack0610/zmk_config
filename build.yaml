@@ -20,6 +20,6 @@
 ---
 include:
   - board: nice_nano
-    shield: corne_left nice_view_adapter nice_view basic_status
+    shield: corne_left nice_view_adapter basic_status
   - board: nice_nano
-    shield: corne_right nice_view_adapter nice_view basic_status
+    shield: corne_right nice_view_adapter basic_status
