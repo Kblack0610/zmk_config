@@ -1,0 +1,9 @@
+/ {
+    chosen {
+        zmk,status-screen = &status_screen;
+    };
+
+    status_screen: status_screen {
+        compatible = "zmk,status-screen";
+    };
+};
