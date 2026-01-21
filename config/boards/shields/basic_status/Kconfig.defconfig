@@ -6,7 +6,4 @@ config ZMK_DISPLAY
 config LV_Z_MEM_POOL_SIZE
     default 4096
 
-config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
-    default y
-
 endif
