@@ -1,9 +1,5 @@
-/ {
-    chosen {
-        zmk,status-screen = &status_screen;
-    };
-
-    status_screen: status_screen {
-        compatible = "zmk,status-screen";
-    };
-};
+/*
+ * Basic Status Shield Overlay
+ * Display hardware is provided by nice_view_adapter.
+ * Screen content is provided by widgets/status.c via zmk_display_status_screen()
+ */
