@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/kblack0610
     - name: whoop-t
       url-base: https://github.com/whoop-t
+    - name: scybin
+      url-base: https://github.com/scybin
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -14,5 +16,8 @@ manifest:
     - name: nice-one-punch-ok
       remote: whoop-t
       revision: main
+    - name: zmk-driver-pim447
+      remote: scybin
+      revision: master
   self:
     path: config

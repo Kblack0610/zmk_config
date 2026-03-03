@@ -1,0 +1,26 @@
+#include "corne_trackball.dtsi"
+
+&pro_micro_i2c {
+    status = "okay";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
+
+    trackball_pim447: trackball@a {
+        compatible = "pimoroni,trackball_pim447";
+        reg = <0x0A>;
+        sensitivity = <128>;
+        move-factor = <3>;
+        scroll-factor = <1>;
+        poll-interval-ms = <10>;
+        led-red = <20>;
+        led-green = <20>;
+        led-blue = <20>;
+        /* invert-x; */
+        /* invert-y; */
+    };
+};
+
+&trackball_split {
+    device = <&trackball_pim447>;
+    /* Uncomment/adjust if cursor direction is wrong based on physical mounting: */
+    /* input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>; */
+};
