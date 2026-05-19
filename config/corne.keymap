@@ -20,6 +20,18 @@
                         bindings = <&bt BT_CLR>;
                         layers = <3>;
                 };
+                combo_bootloader {
+                        timeout-ms = <50>;
+                        key-positions = <24 35>;
+                        bindings = <&bootloader>;
+                        layers = <3>;
+                };
+                combo_sys_reset {
+                        timeout-ms = <50>;
+                        key-positions = <12 23>;
+                        bindings = <&sys_reset>;
+                        layers = <3>;
+                };
         };
 
         keymap {
