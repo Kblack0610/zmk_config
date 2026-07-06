@@ -22,7 +22,7 @@
                 };
                 combo_bootloader {
                         timeout-ms = <50>;
-                        key-positions = <24 35>;
+                        key-positions = <0 24>;
                         bindings = <&bootloader>;
                         layers = <3>;
                 };
@@ -33,9 +33,10 @@
                         layers = <3>;
                 };
                 // toggle super(LGUI) <-> F12 for Moonlight passthrough on travel board
+                // bottom-left + bottom-right corners: far apart, never chorded while typing
                 combo_f12_toggle {
                         timeout-ms = <50>;
-                        key-positions = <38 39>;
+                        key-positions = <24 35>;
                         bindings = <&tog 4>;
                 };
         };
