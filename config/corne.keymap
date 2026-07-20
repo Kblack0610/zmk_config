@@ -32,12 +32,12 @@
                         bindings = <&sys_reset>;
                         layers = <3>;
                 };
-                // toggle super(LGUI) <-> F12 for Moonlight passthrough on travel board
-                // bottom-left + bottom-right corners: far apart, never chorded while typing
-                combo_f12_toggle {
+                // toggle the gaming layer: Y + BSPC (right/off-hand, no overlap
+                // with the reset combos; same combo also toggles it back off)
+                combo_gaming_toggle {
                         timeout-ms = <50>;
-                        key-positions = <24 35>;
-                        bindings = <&tog 4>;
+                        key-positions = <6 11>;
+                        bindings = <&tog 5>;
                 };
         };
 
@@ -70,7 +70,7 @@
                 };
                 arrow_misc {
                         bindings = <
-   &none &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
+   &tog 4 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
    &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &msc SCRL_DOWN &kp LEFT &kp DOWN &kp UP &kp RIGHT &msc SCRL_UP
    &none &kp F6 &kp F7 &kp F10 &kp F11 &kp F12    &kp C_MUTE &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &kp C_PP
       &none &none &none   &none &none &none
@@ -83,6 +83,17 @@
    &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
    &trans &trans &trans &trans &trans &trans   &trans &trans &trans &trans &trans &trans
                   &trans &kp F12 &trans   &trans &trans &trans
+                        >;
+                };
+                gaming {
+                        // left hand = instant plain keys for WASD gaming (no mod-taps),
+                        // middle-left thumb = SPACE (jump); right hand transparent (mouse hand).
+                        // toggle on/off with the Y+BSPC combo.
+                        bindings = <
+   &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &trans &trans &trans &trans &trans &trans
+   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &trans &trans &trans &trans &trans &trans
+   &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &trans &trans &trans &trans &trans &trans
+               &kp TAB &kp SPACE &kp LCTRL   &trans &trans &trans
                         >;
                 };
 
