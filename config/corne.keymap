@@ -14,10 +14,21 @@
 / {
         combos {
                 compatible = "zmk,combos";
+                // clears ONLY the currently selected profile, and only the
+                // keyboard's side of the bond -- also "forget" the keyboard on
+                // the host, or it reconnects with stale keys and sits seeking.
                 combo_bt_clear {
                         timeout-ms = <50>;
                         key-positions = <0 11>;
                         bindings = <&bt BT_CLR>;
+                        layers = <3>;
+                };
+                // nukes all five profiles at once, for when the stale bond is
+                // on a slot other than the active one.
+                combo_bt_clear_all {
+                        timeout-ms = <50>;
+                        key-positions = <11 35>;
+                        bindings = <&bt BT_CLR_ALL>;
                         layers = <3>;
                 };
                 combo_bootloader {
