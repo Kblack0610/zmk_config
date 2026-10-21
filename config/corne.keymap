@@ -99,12 +99,23 @@
                 gaming {
                         // left hand = instant plain keys for WASD gaming (no mod-taps),
                         // middle-left thumb = SPACE (jump); right hand transparent (mouse hand).
-                        // toggle on/off with the Y+BSPC combo.
+                        // toggle on/off with the Y+BSPC combo. hold the key left of A
+                        // for gaming_fn (numbers + F-keys); CTRL stays on the thumb.
                         bindings = <
    &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &trans &trans &trans &trans &trans &trans
-   &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &trans &trans &trans &trans &trans &trans
+   &mo 6     &kp A &kp S &kp D &kp F &kp G   &trans &trans &trans &trans &trans &trans
    &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &trans &trans &trans &trans &trans &trans
                &kp TAB &kp SPACE &kp LCTRL   &trans &trans &trans
+                        >;
+                };
+                gaming_fn {
+                        // held from the gaming layer: 1-5 over QWERT, 6-0 over ASDFG,
+                        // F1-F5 over ZXCVB; thumbs and right hand fall through.
+                        bindings = <
+   &kp GRAVE &kp N1 &kp N2 &kp N3 &kp N4 &kp N5   &trans &trans &trans &trans &trans &trans
+   &trans    &kp N6 &kp N7 &kp N8 &kp N9 &kp N0   &trans &trans &trans &trans &trans &trans
+   &trans    &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &trans &trans &trans &trans &trans &trans
+                        &trans &trans &trans      &trans &trans &trans
                         >;
                 };
 
