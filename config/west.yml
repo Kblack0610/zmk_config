@@ -12,7 +12,7 @@ manifest:
       revision: v0.3
       import: app/west.yml
     - name: nice-one-punch-ok
-      remote: whoop-t
+      remote: kblack0610
       revision: main
   self:
     path: config
