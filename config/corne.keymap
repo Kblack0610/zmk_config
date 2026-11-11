@@ -11,6 +11,27 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
+// Layer indexes. Order is precedence: a higher active layer wins.
+// F12 sits low so the mirror stack can put SPACE on its thumb; the mirror
+// layers sit below SYM so SYM can show its left half over them.
+#define L_DEF   0
+#define L_F12   1  // travel toggle: super thumb sends F12
+#define L_MIRROR 2  // hold Esc: right-hand keys mirrored onto the left hand
+#define L_MSYM  3  // mirror + inner thumb: right half of SYM, mirrored
+#define L_MNUM  4  // mirror + outer thumb: right half of NUM, mirrored
+#define L_SYM   5
+#define L_NUM   6
+#define L_ARROW 7
+#define L_GAME  8
+#define L_GAME_FN 9
+
+// layer-taps: hold only when another key is pressed AND released inside the
+// hold, so rolls stay taps; quick-tap lets a tap-then-hold repeat (BSPC).
+&lt {
+        flavor = "balanced";
+        quick-tap-ms = <175>;
+};
+
 / {
         combos {
                 compatible = "zmk,combos";
@@ -21,7 +42,7 @@
                         timeout-ms = <50>;
                         key-positions = <0 11>;
                         bindings = <&bt BT_CLR>;
-                        layers = <3>;
+                        layers = <L_ARROW>;
                 };
                 // nukes all five profiles at once, for when the stale bond is
                 // on a slot other than the active one.
@@ -29,27 +50,35 @@
                         timeout-ms = <50>;
                         key-positions = <11 35>;
                         bindings = <&bt BT_CLR_ALL>;
-                        layers = <3>;
+                        layers = <L_ARROW>;
                 };
                 combo_bootloader {
                         timeout-ms = <50>;
                         // top-left + bottom-right; 24 is Shift on this layer now
                         key-positions = <0 35>;
                         bindings = <&bootloader>;
-                        layers = <3>;
+                        layers = <L_ARROW>;
                 };
                 combo_sys_reset {
                         timeout-ms = <50>;
                         key-positions = <12 23>;
                         bindings = <&sys_reset>;
-                        layers = <3>;
+                        layers = <L_ARROW>;
                 };
                 // toggle the gaming layer: Y + BSPC (right/off-hand, no overlap
                 // with the reset combos; same combo also toggles it back off)
                 combo_gaming_toggle {
                         timeout-ms = <50>;
                         key-positions = <6 11>;
-                        bindings = <&tog 5>;
+                        bindings = <&tog L_GAME>;
+                };
+        };
+
+        conditional_layers {
+                compatible = "zmk,conditional-layers";
+                mirror_both_thumbs {
+                        if-layers = <L_MSYM L_MNUM>;
+                        then-layer = <L_SYM>;
                 };
         };
 
@@ -58,34 +87,10 @@
 
                 default_layer {
                         bindings = <
-   &mt LALT ESC  &kp Q &kp W &kp E &kp R &kp T    &kp Y &kp U  &kp I  &kp O   &kp P    &kp BSPC
-     &mo 3 &kp A &kp S &kp D &kp F &kp G          &kp H    &kp J  &kp K     &kp L &kp COLON &kp SQT
+   &lt L_MIRROR ESC &kp Q &kp W &kp E &kp R &kp T    &kp Y &kp U  &kp I  &kp O   &kp P    &kp BSPC
+   &mo L_ARROW &kp A &kp S &kp D &kp F &kp G          &kp H    &kp J  &kp K     &kp L &kp COLON &kp SQT
    &kp LSHFT &mt LCTRL Z &mt LALT X &kp C &kp V &kp B  &kp N &kp M &kp COMMA &kp DOT &kp FSLH &kp SEMI
-                  &mo 2 &kp LGUI &mt LCTRL TAB    &kp ENTER &kp SPACE &mo 1
-                        >;
-                };
-                symbols {
-                        bindings = <
-  &none &kp EXCL &kp AT &kp MINUS &kp UNDER &kp PIPE  &kp PLUS &kp AMPS &kp LT &kp GT &kp ASTRK &none
-  &none &kp HASH &kp DLLR &kp LPAR &kp RPAR &kp GRAVE   &kp EQUAL &kp LBRC &kp RBRC &kp AMPS &kp PIPE &none
-  &none &kp CARET &kp PRCNT &kp LBKT &kp RBKT &kp TILDE  &none &kp DQT &kp SQT &kp GRAVE &kp BSLH &none
-      &none &none &kp LG(ENTER)   &kp SPACE &none &none
-                        >;
-                };
-                nums_workspace {
-                        bindings = <
-  &none &none  &kp LG(N3) &kp E &kp LG(N6) &none    &kp EQUAL &kp N7 &kp N8 &kp N9 &kp N0 &none
-  &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none   &kp MINUS &kp N4 &kp N5 &kp N6 &kp PLUS &kp DEL
-  &kp LSHFT &mt LCTRL Z &mt LALT X &none &mkp LCLK &mkp RCLK   &none &kp N1 &kp N2 &kp N3 &kp DEL &none
-      &none &kp LGUI &none   &kp SPACE &kp F12 &none
-                        >;
-                };
-                arrow_misc {
-                        bindings = <
-   &tog 4 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
-   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &msc SCRL_DOWN &kp LEFT &kp DOWN &kp UP &kp RIGHT &msc SCRL_UP
-   &kp LSHFT &kp F6 &kp F7 &kp F10 &kp F11 &kp F12    &kp C_MUTE &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &kp C_PP
-      &none &none &none   &none &none &none
+                &mo L_NUM &kp LGUI &mt LCTRL TAB    &kp ENTER &kp SPACE &mo L_SYM
                         >;
                 };
                 f12_super {
@@ -97,6 +102,61 @@
                   &trans &kp F12 &trans   &trans &trans &trans
                         >;
                 };
+                mirror {
+                        // held on Esc. Left hand = right hand in mirror image
+                        // (same finger, same row: Q->P, A->:, Z->/). Shift stays
+                        // put. Thumbs: outer tap BSPC / hold MNUM, middle SPACE,
+                        // inner tap ENTER / hold MSYM. Right hand falls through.
+                        bindings = <
+   &trans &kp P    &kp O   &kp I     &kp U &kp Y   &trans &trans &trans &trans &trans &trans
+   &kp SQT &kp COLON &kp L &kp K     &kp J &kp H   &trans &trans &trans &trans &trans &trans
+   &kp LSHFT &kp FSLH &kp DOT &kp COMMA &kp M &kp N   &trans &trans &trans &trans &trans &trans
+         &lt L_MNUM BSPC &kp SPACE &lt L_MSYM ENTER   &trans &trans &trans
+                        >;
+                };
+                mirror_sym {
+                        // SYM's right half, mirrored. Hold the key left of A (or
+                        // both mirror thumbs) for SYM itself: the other symbol set.
+                        bindings = <
+   &trans   &kp ASTRK &kp GT &kp LT &kp AMPS &kp PLUS   &trans &trans &trans &trans &trans &trans
+   &mo L_SYM  &kp PIPE &kp AMPS &kp RBRC &kp LBRC &kp EQUAL   &trans &trans &trans &trans &trans &trans
+   &kp SEMI &kp BSLH &kp GRAVE &kp SQT &kp DQT &none   &trans &trans &trans &trans &trans &trans
+                  &trans &trans &trans   &trans &trans &trans
+                        >;
+                };
+                mirror_num {
+                        // NUM's right half, mirrored: index finger 7/4/1, ring 9/6/3.
+                        bindings = <
+   &trans   &kp N0 &kp N9 &kp N8 &kp N7 &kp EQUAL   &trans &trans &trans &trans &trans &trans
+   &kp DEL  &kp PLUS &kp N6 &kp N5 &kp N4 &kp MINUS   &trans &trans &trans &trans &trans &trans
+   &trans   &kp DEL &kp N3 &kp N2 &kp N1 &none   &trans &trans &trans &trans &trans &trans
+                  &trans &trans &trans   &trans &trans &trans
+                        >;
+                };
+                symbols {
+                        bindings = <
+  &none &kp EXCL &kp AT &kp MINUS &kp UNDER &kp PIPE  &kp PLUS &kp AMPS &kp LT &kp GT &kp ASTRK &none
+  &none &kp HASH &kp DLLR &kp LPAR &kp RPAR &kp GRAVE   &kp EQUAL &kp LBRC &kp RBRC &kp AMPS &kp PIPE &none
+  &none &kp CARET &kp PRCNT &kp LBKT &kp RBKT &kp TILDE  &none &kp DQT &kp SQT &kp GRAVE &kp BSLH &none
+      &none &trans &kp LG(ENTER)   &kp SPACE &none &none
+                        >;
+                };
+                nums_workspace {
+                        bindings = <
+  &none &none  &kp LG(N3) &kp E &kp LG(N6) &none    &kp EQUAL &kp N7 &kp N8 &kp N9 &kp N0 &none
+  &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &none   &kp MINUS &kp N4 &kp N5 &kp N6 &kp PLUS &kp DEL
+  &kp LSHFT &mt LCTRL Z &mt LALT X &none &mkp LCLK &mkp RCLK   &none &kp N1 &kp N2 &kp N3 &kp DEL &none
+      &none &trans &none   &kp SPACE &kp F12 &none
+                        >;
+                };
+                arrow_misc {
+                        bindings = <
+   &tog L_F12 &kp F1 &kp F2 &kp F3 &kp F4 &kp F5   &mkp LCLK &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT &mkp RCLK
+   &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &msc SCRL_DOWN &kp LEFT &kp DOWN &kp UP &kp RIGHT &msc SCRL_UP
+   &kp LSHFT &kp F6 &kp F7 &kp F10 &kp F11 &kp F12    &kp C_MUTE &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &kp C_PP
+      &none &trans &none   &none &none &none
+                        >;
+                };
                 gaming {
                         // left hand = instant plain keys for WASD gaming (no mod-taps),
                         // middle-left thumb = SPACE (jump); right hand transparent (mouse hand).
@@ -104,7 +164,7 @@
                         // for gaming_fn (numbers + F-keys); CTRL stays on the thumb.
                         bindings = <
    &kp ESC   &kp Q &kp W &kp E &kp R &kp T   &trans &trans &trans &trans &trans &trans
-   &mo 6     &kp A &kp S &kp D &kp F &kp G   &trans &trans &trans &trans &trans &trans
+   &mo L_GAME_FN &kp A &kp S &kp D &kp F &kp G   &trans &trans &trans &trans &trans &trans
    &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &trans &trans &trans &trans &trans &trans
                &kp TAB &kp SPACE &kp LCTRL   &trans &trans &trans
                         >;
